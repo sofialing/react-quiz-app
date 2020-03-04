@@ -13,6 +13,7 @@ class Start extends React.Component {
             .then(response => {
                 const quiz = [];
                 response.forEach(doc => {
+                    // console.log(doc.data());
                     quiz.push({
                         id: doc.id,
                         ...doc.data()
@@ -21,6 +22,7 @@ class Start extends React.Component {
                 this.setState({
                     quiz
                 });
+                console.log(quiz);
             });
     };
     componentDidMount() {
@@ -28,23 +30,16 @@ class Start extends React.Component {
     }
 
     render() {
+        const quizzez = this.state.quiz
+            ? this.state.quiz.map((quiz, i) => {
+                  return <QuizCard quiz={quiz} key={i} />;
+              })
+            : "";
+
         return (
             <div className='container'>
                 <h1 className='text-center'>Quizzes</h1>
-                <div className='row'>
-                    <QuizCard
-                        quizTitle='QUIZ TITLE'
-                        quizInfo='Information about the quiz'
-                    />
-                    <QuizCard
-                        quizTitle='QUIZ TITLE'
-                        quizInfo='Information about the quiz'
-                    />
-                    <QuizCard
-                        quizTitle='QUIZ TITLE'
-                        quizInfo='Information about the quiz'
-                    />
-                </div>
+                <div className='row'>{quizzez}</div>
             </div>
         );
     }
