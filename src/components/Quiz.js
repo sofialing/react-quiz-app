@@ -1,13 +1,20 @@
 import React, { Component } from 'react'
 import QuizQuestion from './QuizQuestion'
+import Result from './Result'
 import { db } from '../modules/firebase'
-import { Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 class Quiz extends Component {
 	state = {
+		current: 0,
+		name: '',
 		quiz: null,
 		quizOver: false,
 		score: 0
+	}
+
+	componentDidMount() {
+		this.getQuiz()
 	}
 
 	getQuiz = () => {
@@ -17,7 +24,8 @@ class Quiz extends Component {
 			.then(doc => {
 				if (doc.exists) {
 					this.setState({
-						quiz: { ...doc.data() }
+						name: doc.data().name,
+						quiz: [...doc.data().quiz]
 					})
 				}
 			})
@@ -26,52 +34,49 @@ class Quiz extends Component {
 			})
 	}
 
-	componentDidMount() {
-		this.getQuiz()
+	showNextQuestion = () => {
+		if (this.state.current < this.state.quiz.length - 1) {
+			this.setState(prevState => ({
+				current: prevState.current + 1
+			}))
+		} else {
+			this.setState({ quizOver: true })
+		}
 	}
 
-	submitQuiz = e => {
-		e.preventDefault()
-		this.setState({ quizOver: true })
+	UpdateScore = point => {
+		this.setState(prevState => ({
+			score: prevState.score + point
+		}))
+		this.showNextQuestion()
 	}
 
 	render() {
 		if (this.state.quizOver) {
 			return (
-				<Redirect
-					to={{
-						pathname: '/result',
-						state: {
-							result: {
-								score: this.state.score,
-								name: this.state.name
-							}
-						}
+				<Result
+					result={{
+						name: this.state.name,
+						score: this.state.score,
+						maxScore: '15'
 					}}
 				/>
 			)
 		}
 
-		const title = this.state.quiz ? this.state.quiz.name : ''
-		const quiz = this.state.quiz
-			? this.state.quiz.quiz.map((q, i) => (
-					<QuizQuestion
-						key={i}
-						question={q.question}
-						correct={q.correct}
-						wrong={q.wrong}
-					/>
-			  ))
-			: ''
-
-		return (
-			<div className='container'>
-				<h1 className='text-center mb-5'>{title}</h1>
-				<form onSubmit={this.submitQuiz}>
-					{quiz}
-					<button className='btn btn-primary'>Submit</button>
-				</form>
+		return this.state.quiz ? (
+			<div>
+				<h1 className='text-center mb-5'>{this.state.name}</h1>
+				<QuizQuestion
+					quiz={this.state.quiz[this.state.current]}
+					onUpdateScore={this.UpdateScore}
+				/>
+				<Link to='/' className='btn btn-primary'>
+					Back to all quizzes
+				</Link>
 			</div>
+		) : (
+			''
 		)
 	}
 }
