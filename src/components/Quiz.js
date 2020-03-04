@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import QuizQuestion from './QuizQuestion'
-import { db } from '../modules/firebase'
+import React, { Component } from 'react';
+import QuizQuestion from './QuizQuestion';
+import { db } from '../modules/firebase';
 
 class Quiz extends Component {
 	state = {
 		quiz: null
-	}
+	};
 
 	getQuiz = () => {
 		db.collection('quizzes')
@@ -15,20 +15,33 @@ class Quiz extends Component {
 				if (doc.exists) {
 					this.setState({
 						quiz: { ...doc.data() }
-					})
+					});
+					// console.log(this.state.quiz);
+					// this.getMaxScore();
 				}
 			})
 			.catch(error => {
-				console.log('Error getting document:', error)
-			})
-	}
+				console.log('Error getting document:', error);
+			});
+	};
 
 	componentDidMount() {
-		this.getQuiz()
+		this.getQuiz();
 	}
 
+	// getMaxScore = () => {
+	// 	//loopa igenom quiz och räkna ut totalpoäng
+	// 	const result = this.state.quiz.quiz.map(q => {
+	// 		return q.correct;
+	// 	});
+
+	// 	const totalResult = result.forEach(r => {
+	// 		console.log(r);
+	// 	});
+	// };
+
 	render() {
-		const title = this.state.quiz ? this.state.quiz.name : ''
+		const title = this.state.quiz ? this.state.quiz.name : '';
 		const quiz = this.state.quiz
 			? this.state.quiz.quiz.map((q, i) => (
 					<QuizQuestion
@@ -38,7 +51,7 @@ class Quiz extends Component {
 						wrong={q.wrong}
 					/>
 			  ))
-			: ''
+			: '';
 
 		return (
 			<div className='container'>
@@ -46,8 +59,8 @@ class Quiz extends Component {
 				{quiz}
 				<button className='btn btn-primary'>Submit</button>
 			</div>
-		)
+		);
 	}
 }
 
-export default Quiz
+export default Quiz;
