@@ -16,7 +16,7 @@ class Quiz extends Component {
           this.setState({
             quiz: { ...doc.data() }
           });
-          // console.log(this.state.quiz);
+          console.log(this.getMaxScore());
         }
       })
       .catch(error => {
@@ -39,7 +39,8 @@ class Quiz extends Component {
     const points = oneResult.reduce((a, b) => {
       return a + b;
     });
-    console.log(points);
+    // console.log(points);
+    return points;
   };
 
   render() {
@@ -60,7 +61,6 @@ class Quiz extends Component {
         <h1 className="text-center mb-5">{title}</h1>
         {quiz}
         <button className="btn btn-primary">Submit</button>
-        <span onClick={this.getMaxScore}>click</span>
       </div>
     );
   }
