@@ -1,58 +1,53 @@
-import React, { Component } from "react";
-import QuizQuestion from "./QuizQuestion";
-import { db } from "../modules/firebase";
+import React, { Component } from 'react'
+import QuizQuestion from './QuizQuestion'
+import { db } from '../modules/firebase'
 
 class Quiz extends Component {
-  state = {
-    quiz: null
-  };
+	state = {
+		quiz: null
+	}
 
-  gitData = () => {
-    db.collection("quizzes")
-      .get()
-      .then(response => {
-        const quiz = [];
-        response.forEach(doc => {
-          quiz.push({
-            id: doc.id,
-            ...doc.data()
-          });
-        });
-        this.setState({
-          quiz
-        });
-      });
-  };
+	getQuiz = () => {
+		db.collection('quizzes')
+			.doc(this.props.match.params.id)
+			.get()
+			.then(doc => {
+				if (doc.exists) {
+					this.setState({
+						quiz: { ...doc.data() }
+					})
+				}
+			})
+			.catch(error => {
+				console.log('Error getting document:', error)
+			})
+	}
 
-  componentDidMount() {
-    this.gitData();
-  }
+	componentDidMount() {
+		this.getQuiz()
+	}
 
-  render() {
-    console.log(this.state.quiz);
-    const quiz = this.state.quiz
-      ? this.state.quiz.map(data => {
-          console.log("quiz data", data.quiz);
-          return data.quiz.map(q => {
-            return (
-              <QuizQuestion
-                key={data.id}
-                question={q.question}
-                correct={q.correct}
-                wrong={q.wrong}
-              />
-            );
-          });
-        })
-      : "";
+	render() {
+		const title = this.state.quiz ? this.state.quiz.name : ''
+		const quiz = this.state.quiz
+			? this.state.quiz.quiz.map((q, i) => (
+					<QuizQuestion
+						key={i}
+						question={q.question}
+						correct={q.correct}
+						wrong={q.wrong}
+					/>
+			  ))
+			: ''
 
-    return (
-      <div>
-        <h1>Quiz</h1>
-        {quiz}
-      </div>
-    );
-  }
+		return (
+			<div className='container'>
+				<h1 className='text-center mb-5'>{title}</h1>
+				{quiz}
+				<button className='btn btn-primary'>Submit</button>
+			</div>
+		)
+	}
 }
 
-export default Quiz;
+export default Quiz
