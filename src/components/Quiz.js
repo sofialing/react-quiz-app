@@ -1,58 +1,98 @@
-import React, { Component } from "react";
-import QuizQuestion from "./QuizQuestion";
-import { db } from "../modules/firebase";
+import React, { Component } from 'react'
+import QuizQuestion from './QuizQuestion'
+import Result from './Result'
+import { db } from '../modules/firebase'
+import { Link } from 'react-router-dom'
 
 class Quiz extends Component {
-  state = {
-    quiz: null
-  };
+	state = {
+		current: 0,
+		name: '',
+		quiz: null,
+		quizOver: false,
+		score: 0
+	}
 
-  gitData = () => {
-    db.collection("quizzes")
-      .get()
-      .then(response => {
-        const quiz = [];
-        response.forEach(doc => {
-          quiz.push({
-            id: doc.id,
-            ...doc.data()
-          });
-        });
-        this.setState({
-          quiz
-        });
-      });
-  };
+	componentDidMount() {
+		this.getQuiz()
+	}
 
-  componentDidMount() {
-    this.gitData();
-  }
+	getQuiz = () => {
+		db.collection('quizzes')
+			.doc(this.props.match.params.id)
+			.get()
+			.then(doc => {
+				if (doc.exists) {
+					this.setState({
+						name: doc.data().name,
+						quiz: [...doc.data().quiz]
+					})
+				}
+			})
+			.catch(error => {
+				console.log('Error getting document:', error)
+			})
+	}
 
-  render() {
-    console.log(this.state.quiz);
-    const quiz = this.state.quiz
-      ? this.state.quiz.map(data => {
-          console.log("quiz data", data.quiz);
-          return data.quiz.map(q => {
-            return (
-              <QuizQuestion
-                key={data.id}
-                question={q.question}
-                correct={q.correct}
-                wrong={q.wrong}
-              />
-            );
-          });
-        })
-      : "";
+	getMaxScore = () => {
+		const result = this.state.quiz.map(q => {
+			return q.correct.map(p => {
+				return parseInt(p.point)
+			})
+		})
+		const oneResult = result.flat(1)
+		const points = oneResult.reduce((a, b) => {
+			return a + b
+		})
+		// console.log(points);
+		return points
+	}
 
-    return (
-      <div>
-        <h1>Quiz</h1>
-        {quiz}
-      </div>
-    );
-  }
+	showNextQuestion = () => {
+		if (this.state.current < this.state.quiz.length - 1) {
+			this.setState(prevState => ({
+				current: prevState.current + 1
+			}))
+		} else {
+			this.setState({ quizOver: true })
+		}
+	}
+
+	UpdateScore = point => {
+		this.setState(prevState => ({
+			score: prevState.score + point
+		}))
+		this.showNextQuestion()
+	}
+
+	render() {
+		if (this.state.quizOver) {
+			return (
+				<Result
+					result={{
+						name: this.state.name,
+						score: this.state.score,
+						maxScore: this.getMaxScore()
+					}}
+				/>
+			)
+		}
+
+		return this.state.quiz ? (
+			<div>
+				<h1 className='text-center mb-5'>{this.state.name}</h1>
+				<QuizQuestion
+					quiz={this.state.quiz[this.state.current]}
+					onUpdateScore={this.UpdateScore}
+				/>
+				<Link to='/' className='btn btn-primary'>
+					Back to all quizzes
+				</Link>
+			</div>
+		) : (
+			''
+		)
+	}
 }
 
-export default Quiz;
+export default Quiz

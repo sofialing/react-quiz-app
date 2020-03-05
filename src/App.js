@@ -12,7 +12,7 @@ class App extends Component {
         <div id="App" className="container my-5">
           <Switch>
             <Route exact path="/" component={Start} />
-            <Route path="/quiz" component={Quiz} />
+            <Route path="/quiz/:id" component={Quiz} />
             <Route path="/result" component={Result} />
             <Route path="/addQuiz" component={AddNewQuiz} />
           </Switch>
