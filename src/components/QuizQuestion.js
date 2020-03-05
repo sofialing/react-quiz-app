@@ -4,6 +4,7 @@ import QuizOptions from './QuizOptions'
 const QuizQuestion = props => {
 	const { question, correct, wrong } = props.quiz
 	const options = correct.map(option => option.answer).concat(wrong)
+	options.sort(() => 0.5 - Math.random())
 
 	return (
 		<div className='card mb-4'>
