@@ -1,11 +1,21 @@
-import React, { Component } from 'react';
-import QuizQuestion from './QuizQuestion';
-import { db } from '../modules/firebase';
+import React, { Component } from 'react'
+import QuizQuestion from './QuizQuestion'
+import Result from './Result'
+import { db } from '../modules/firebase'
+import { Link } from 'react-router-dom'
 
 class Quiz extends Component {
 	state = {
-		quiz: null
-	};
+		current: 0,
+		name: '',
+		quiz: null,
+		quizOver: false,
+		score: 0
+	}
+
+	componentDidMount() {
+		this.getQuiz()
+	}
 
 	getQuiz = () => {
 		db.collection('quizzes')
@@ -14,53 +24,75 @@ class Quiz extends Component {
 			.then(doc => {
 				if (doc.exists) {
 					this.setState({
-						quiz: { ...doc.data() }
-					});
-					// console.log(this.state.quiz);
-					// this.getMaxScore();
+						name: doc.data().name,
+						quiz: [...doc.data().quiz]
+					})
 				}
 			})
 			.catch(error => {
-				console.log('Error getting document:', error);
-			});
-	};
-
-	componentDidMount() {
-		this.getQuiz();
+				console.log('Error getting document:', error)
+			})
 	}
 
-	// getMaxScore = () => {
-	// 	//loopa igenom quiz och räkna ut totalpoäng
-	// 	const result = this.state.quiz.quiz.map(q => {
-	// 		return q.correct;
-	// 	});
+	getMaxScore = () => {
+		const result = this.state.quiz.map(q => {
+			return q.correct.map(p => {
+				return parseInt(p.point)
+			})
+		})
+		const oneResult = result.flat(1)
+		const points = oneResult.reduce((a, b) => {
+			return a + b
+		})
+		// console.log(points);
+		return points
+	}
 
-	// 	const totalResult = result.forEach(r => {
-	// 		console.log(r);
-	// 	});
-	// };
+	showNextQuestion = () => {
+		if (this.state.current < this.state.quiz.length - 1) {
+			this.setState(prevState => ({
+				current: prevState.current + 1
+			}))
+		} else {
+			this.setState({ quizOver: true })
+		}
+	}
+
+	UpdateScore = point => {
+		this.setState(prevState => ({
+			score: prevState.score + point
+		}))
+		this.showNextQuestion()
+	}
 
 	render() {
-		const title = this.state.quiz ? this.state.quiz.name : '';
-		const quiz = this.state.quiz
-			? this.state.quiz.quiz.map((q, i) => (
-					<QuizQuestion
-						key={i}
-						question={q.question}
-						correct={q.correct}
-						wrong={q.wrong}
-					/>
-			  ))
-			: '';
+		if (this.state.quizOver) {
+			return (
+				<Result
+					result={{
+						name: this.state.name,
+						score: this.state.score,
+						maxScore: this.getMaxScore()
+					}}
+				/>
+			)
+		}
 
-		return (
-			<div className='container'>
-				<h1 className='text-center mb-5'>{title}</h1>
-				{quiz}
-				<button className='btn btn-primary'>Submit</button>
+		return this.state.quiz ? (
+			<div>
+				<h1 className='text-center mb-5'>{this.state.name}</h1>
+				<QuizQuestion
+					quiz={this.state.quiz[this.state.current]}
+					onUpdateScore={this.UpdateScore}
+				/>
+				<Link to='/' className='btn btn-primary'>
+					Back to all quizzes
+				</Link>
 			</div>
-		);
+		) : (
+			''
+		)
 	}
 }
 
-export default Quiz;
+export default Quiz

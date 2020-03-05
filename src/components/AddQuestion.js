@@ -1,6 +1,7 @@
 import React from "react";
 import { db } from "../modules/firebase";
 import firebase from "firebase/app";
+import { Link } from "react-router-dom";
 
 class AddQuestion extends React.Component {
   state = {
@@ -18,15 +19,15 @@ class AddQuestion extends React.Component {
     });
   };
 
-  handleAddQu = e => {
+  handleAddQu = (e, id) => {
     e.preventDefault();
-    let questionForm = {};
+    // let questionForm = {};
 
-    console.log(questionForm);
+    // console.log(questionForm);
     console.log(this.state.wrongAnswerArr);
 
     db.collection("quizzes")
-      .doc("eBhOLLIzCGn2J6cDpOCe")
+      .doc(id)
       .update({
         quiz: firebase.firestore.FieldValue.arrayUnion({
           correct: [...this.state.correctAnswerArr],
@@ -34,6 +35,14 @@ class AddQuestion extends React.Component {
           wrong: [...this.state.wrongAnswerArr]
         })
       });
+    this.setState({
+      question: "",
+      correctAnswer: "",
+      point: "",
+      wrongAnswer: "",
+      wrongAnswerArr: [],
+      correctAnswerArr: []
+    });
   };
 
   handleIncorrectAnswer = () => {
@@ -52,6 +61,24 @@ class AddQuestion extends React.Component {
     });
   };
 
+  handleCorrectDelete = i => {
+    let newCorrectAnswer = this.state.correctAnswerArr.filter((c, index) => {
+      return i !== index;
+    });
+    this.setState({
+      correctAnswerArr: newCorrectAnswer
+    });
+  };
+
+  handleWrongDelete = i => {
+    let newWrongAnswer = this.state.wrongAnswerArr.filter((c, index) => {
+      return i !== index;
+    });
+    this.setState({
+      wrongAnswerArr: newWrongAnswer
+    });
+  };
+
   render() {
     return (
       <div>
@@ -64,46 +91,83 @@ class AddQuestion extends React.Component {
               placeholder="Write a question"
               name="question"
               onChange={e => this.handleChange(e)}
+              value={this.state.question}
             />
           </div>
-          <div className="form-group">
-            <label>The correct answer</label>
+          <ul>
+            {this.state.correctAnswerArr.map((answer, i) => {
+              return (
+                <li key={i}>
+                  <span>
+                    {answer.answer} {answer.point}
+                  </span>
+                  <span onClick={() => this.handleCorrectDelete(i)}>X</span>
+                </li>
+              );
+            })}
+          </ul>
+          <div className="input-group mb-4">
             <input
               type="text"
               className="form-control"
               placeholder="Write the correct answer"
               name="correctAnswer"
               onChange={e => this.handleChange(e)}
+              value={this.state.correctAnswer}
             />
-          </div>
-          <div className="form-group">
-            <label>The correct answer point</label>
             <input
-              type="text"
+              type="number"
               className="form-control"
               placeholder="write a point"
               name="point"
               onChange={e => this.handleChange(e)}
+              value={this.state.point}
             />
+            <div className="input-group-prepend">
+              <span
+                className="input-group-text span-button"
+                onClick={this.handleCorrectAnswer}
+              >
+                Add more correct Answer
+              </span>
+            </div>
           </div>
-          <div className="form-group">
-            <label>The Wrong answer</label>
+          <ul>
+            {this.state.wrongAnswerArr.map((answer, i) => {
+              return (
+                <li key={i}>
+                  <span>{answer}</span>
+                  <span onClick={() => this.handleWrongDelete(i)}>x</span>
+                </li>
+              );
+            })}
+          </ul>
+          <div className="input-group mb-3">
             <input
               type="text"
               className="form-control"
               placeholder="The Wrong answer"
               name="wrongAnswer"
               onChange={e => this.handleChange(e)}
+              value={this.state.wrongAnswer}
             />
+            <div className="input-group-prepend ">
+              <span
+                className="input-group-text span-button"
+                onClick={this.handleIncorrectAnswer}
+              >
+                Add more incorrect Answer
+              </span>
+            </div>
           </div>
-          <button onClick={e => this.handleAddQu(e)}>ADD</button>
+          <button
+            type="submit"
+            onClick={e => this.handleAddQu(e, this.props.id)}
+          >
+            ADD
+          </button>
         </form>
-        <button onClick={this.handleIncorrectAnswer}>
-          Add more incorrect Answer
-        </button>
-        <button onClick={this.handleCorrectAnswer}>
-          Add more correct Answer
-        </button>
+        <Link to="">go to the quiz</Link>
       </div>
     );
   }
