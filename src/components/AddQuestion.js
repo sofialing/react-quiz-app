@@ -116,7 +116,7 @@ class AddQuestion extends React.Component {
               value={this.state.correctAnswer}
             />
             <input
-              type="text"
+              type="number"
               className="form-control"
               placeholder="write a point"
               name="point"
