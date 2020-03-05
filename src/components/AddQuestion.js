@@ -10,7 +10,9 @@ class AddQuestion extends React.Component {
         point: "",
         wrongAnswer: "",
         wrongAnswerArr: [],
-        correctAnswerArr: []
+        correctAnswerArr: [],
+        error: false,
+        errorMessage: ""
     };
 
     handleChange = e => {
@@ -21,7 +23,29 @@ class AddQuestion extends React.Component {
 
     handleAddQu = (e, id) => {
         e.preventDefault();
-        if (this.state.question.length < 6) return;
+        if (this.state.question.length < 6) {
+            this.setState({
+                error: true,
+                errorMessage: "your question should be more than 5 Characters"
+            });
+            return;
+        }
+        if (this.state.correctAnswerArr.length < 1) {
+            this.setState({
+                error: true,
+                errorMessage:
+                    "You should add at least an correct answer with point "
+            });
+            return;
+        }
+        if (this.state.wrongAnswerArr.length < 1) {
+            this.setState({
+                error: true,
+                errorMessage: "You should add at least an incorrect answer "
+            });
+            return;
+        }
+
         console.log(this.state.wrongAnswerArr);
 
         db.collection("quizzes")
@@ -39,12 +63,21 @@ class AddQuestion extends React.Component {
             point: "",
             wrongAnswer: "",
             wrongAnswerArr: [],
-            correctAnswerArr: []
+            correctAnswerArr: [],
+            error: false,
+            errorMessage: ""
         });
     };
 
     handleIncorrectAnswer = () => {
-        if (this.state.wrongAnswer.length < 3) return;
+        if (this.state.wrongAnswer.length < 4) {
+            this.setState({
+                error: true,
+                errorMessage:
+                    "Incorrect answer should be more than 3 Characters"
+            });
+            return;
+        }
         this.setState({
             wrongAnswerArr: [
                 ...this.state.wrongAnswerArr,
@@ -56,11 +89,22 @@ class AddQuestion extends React.Component {
 
     handleCorrectAnswer = () => {
         console.log(this.state.correctAnswerArr);
-        if (
-            this.state.correctAnswer.length < 3 ||
-            this.state.point.length === 0
-        )
+        if (this.state.correctAnswer.length < 4) {
+            this.setState({
+                error: true,
+                errorMessage: "Correct answer should be more than 3 Characters"
+            });
             return;
+        }
+        if (this.state.point.length === 0) {
+            this.setState({
+                error: true,
+                errorMessage:
+                    "Don't forget to sett a point for the correct answer"
+            });
+            return;
+        }
+
         this.setState({
             correctAnswerArr: [
                 ...this.state.correctAnswerArr,
@@ -94,6 +138,7 @@ class AddQuestion extends React.Component {
     render() {
         return (
             <div>
+                <h2>{this.state.errorMessage}</h2>
                 <form>
                     <div className="form-group">
                         <label>Write a question</label>
