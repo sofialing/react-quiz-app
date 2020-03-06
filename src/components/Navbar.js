@@ -4,7 +4,7 @@ import { auth } from "../modules/firebase";
 
 const Navbar = props => {
     const handleSignOut = e => {
-        auth.signOut().then(() => {
+        auth.signOut().then(data => {
             //skicka vidare till start eller login
             console.log(props.user.email, "signed out");
         });
@@ -33,26 +33,39 @@ const Navbar = props => {
                             All Quizzes
                         </NavLink>
                     </li>
-                    <li className="nav-item">
-                        <NavLink to="/addQuiz" className="nav-link">
-                            Add Quiz
-                        </NavLink>
-                    </li>
                     {props.user ? (
                         <li className="nav-item">
-                            <span
+                            <NavLink to="/addQuiz" className="nav-link">
+                                Add Quiz
+                            </NavLink>
+                        </li>
+                    ) : (
+                        ""
+                    )}
+
+                    {props.user ? (
+                        <li className="nav-item">
+                            <Link
+                                to="/"
                                 className="nav-link logout"
                                 onClick={handleSignOut}
                             >
                                 Logout
-                            </span>
+                            </Link>
                         </li>
                     ) : (
-                        <li className="nav-item">
-                            <NavLink to="/login" className="nav-link">
-                                Login
-                            </NavLink>
-                        </li>
+                        <React.Fragment>
+                            <li className="nav-item">
+                                <NavLink to="/login" className="nav-link">
+                                    Login
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink to="signUp" className="nav-link">
+                                    Sign up
+                                </NavLink>
+                            </li>
+                        </React.Fragment>
                     )}
                 </ul>
             </div>

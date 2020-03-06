@@ -6,6 +6,7 @@ import AddNewQuiz from "./components/AddNewQuiz";
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import { auth } from "./modules/firebase";
+import SignUp from "./components/signup";
 
 class App extends Component {
     state = {
@@ -38,6 +39,7 @@ class App extends Component {
                             <Route path="/quiz/:id" component={Quiz} />
                             <Route path="/addQuiz" component={AddNewQuiz} />
                             <Route path="/login" component={Login} />
+                            <Route path="/signUp" component={SignUp} />
                         </Switch>
                     </div>
                 </div>
