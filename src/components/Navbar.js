@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { auth } from '../modules/firebase';
 
 const Navbar = props => {
-	//lägg in när firebase auth är klart
-	// const handleSignOut = e => {
-	// 	auth.signOut().then(() => {
-	// 		//redirect to login
-	// 		console.log('sign out');
-	// 	});
-	// };
+	const handleSignOut = e => {
+		auth.signOut().then(() => {
+			//skicka vidare till start eller login
+			console.log(props.user.email, 'signed out');
+		});
+	};
 
 	return (
 		<nav className='navbar navbar-expand navbar-light bg-light mb-3'>
@@ -38,30 +38,22 @@ const Navbar = props => {
 							Add Quiz
 						</NavLink>
 					</li>
-
-					{/* byt till detta när firebase auth är klart */}
-					{/* {props.user ? (
-							<li className='nav-item'>
-								<span
-									className='nav-link logout'
-									onClick={handleSignOut}
-								>
-									Logout
-								</span>
-							</li>
-						) : (
-							<li className='nav-item'>
-								<NavLink to='/login' className='nav-link'>
-									Login
-								</NavLink>
-							</li>
-						)} */}
-
-					<li className='nav-item'>
-						<NavLink to='/login' className='nav-link'>
-							Login
-						</NavLink>
-					</li>
+					{props.user ? (
+						<li className='nav-item'>
+							<span
+								className='nav-link logout'
+								onClick={handleSignOut}
+							>
+								Logout
+							</span>
+						</li>
+					) : (
+						<li className='nav-item'>
+							<NavLink to='/login' className='nav-link'>
+								Login
+							</NavLink>
+						</li>
+					)}
 				</ul>
 			</div>
 		</nav>
