@@ -77,11 +77,10 @@ class AddQuestion extends React.Component {
     };
 
     handleIncorrectAnswer = () => {
-        if (this.state.wrongAnswer.length < 4) {
+        if (this.state.wrongAnswer.length < 1) {
             this.setState({
                 error: true,
-                errorMessage:
-                    "Incorrect answer should be more than 3 Characters"
+                errorMessage: "Incorrect answer shouldn't be empty"
             });
             return;
         }
@@ -96,10 +95,10 @@ class AddQuestion extends React.Component {
 
     handleCorrectAnswer = () => {
         console.log(this.state.correctAnswerArr);
-        if (this.state.correctAnswer.length < 4) {
+        if (this.state.correctAnswer.length < 1) {
             this.setState({
                 error: true,
-                errorMessage: "Correct answer should be more than 3 Characters"
+                errorMessage: "Correct answer shouldn't be empty"
             });
             return;
         }
