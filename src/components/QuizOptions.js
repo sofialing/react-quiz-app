@@ -2,17 +2,25 @@ import React, { Component } from 'react'
 
 class QuizOptions extends Component {
 	state = {
-		userAnswer: []
+		userAnswer: [],
+		message: false
 	}
 
 	handleChange = e => {
 		const { name } = e.target
+		const { userAnswer } = this.state
+		const { correct } = this.props
 
-		if (this.state.userAnswer.includes(name)) {
-			const newArray = [...this.state.userAnswer]
+		if (userAnswer.includes(name)) {
+			const newArray = [...userAnswer]
 			const i = newArray.indexOf(name)
 			newArray.splice(i, 1)
-			this.setState({ userAnswer: newArray })
+			this.setState({ userAnswer: newArray, message: false })
+		} else if (userAnswer.length === correct.length) {
+			e.preventDefault()
+			this.setState({
+				message: `You can only select ${correct.length} options`
+			})
 		} else {
 			this.setState(prevState => ({
 				userAnswer: [...prevState.userAnswer, name]
@@ -22,13 +30,18 @@ class QuizOptions extends Component {
 
 	checkAnswer = e => {
 		e.preventDefault()
-		let point = 0
-		if (this.state.userAnswer[0] === this.props.correct[0].answer) {
-			point = 1
-		}
+
+		const { correct, point } = this.props
+		const { userAnswer } = this.state
+
+		// Plocka ut de rätta svaren som användaren har valt
+		const correctAnswers = correct.filter(answer => userAnswer.includes(answer))
+
+		// Räkna ut poängen (totalpoäng delat på antal rätta svar)
+		let totalPoint = (Number(point) / correct.length) * correctAnswers.length
 
 		this.setState({ userAnswer: [] })
-		this.props.onUpdateScore(point)
+		this.props.onUpdateScore(totalPoint)
 	}
 
 	render() {
@@ -51,6 +64,11 @@ class QuizOptions extends Component {
 		return (
 			<form onSubmit={this.checkAnswer}>
 				{checkboxes}
+				{this.state.message ? (
+					<div className='alert alert-warning my-3'>{this.state.message}</div>
+				) : (
+					''
+				)}
 				<button className='btn btn-primary mt-3'>Next question</button>
 			</form>
 		)

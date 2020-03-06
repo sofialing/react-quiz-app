@@ -2,8 +2,8 @@ import React from 'react'
 import QuizOptions from './QuizOptions'
 
 const QuizQuestion = props => {
-	const { question, correct, wrong } = props.quiz
-	const options = correct.map(option => option.answer).concat(wrong)
+	const { question, correct, wrong, point } = props.quiz
+	const options = [...correct, ...wrong]
 	options.sort(() => 0.5 - Math.random())
 
 	return (
@@ -14,6 +14,7 @@ const QuizQuestion = props => {
 					options={options}
 					correct={correct}
 					onUpdateScore={props.onUpdateScore}
+					point={point}
 				/>
 			</div>
 		</div>
