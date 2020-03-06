@@ -86,6 +86,7 @@ class QuizOptions extends Component {
 
 	render() {
 		const buttonText = this.props.isLastQuestion ? 'Finish quiz' : 'Next question'
+		const buttonState = this.state.userAnswer.length ? false : true
 
 		return (
 			<form onSubmit={this.checkAnswer}>
@@ -93,7 +94,9 @@ class QuizOptions extends Component {
 					? this.getRadios()
 					: this.getCheckboxes()}
 
-				<button className='btn btn-primary mt-3'>{buttonText}</button>
+				<button disabled={buttonState} className='btn btn-primary mt-3'>
+					{buttonText}
+				</button>
 			</form>
 		)
 	}
