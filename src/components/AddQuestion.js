@@ -7,7 +7,7 @@ class AddQuestion extends React.Component {
     state = {
         question: "",
         correctAnswer: "",
-        point: "",
+        point: 0,
         wrongAnswer: "",
         wrongAnswerArr: [],
         correctAnswerArr: [],
@@ -67,7 +67,7 @@ class AddQuestion extends React.Component {
         this.setState({
             question: "",
             correctAnswer: "",
-            point: "",
+            point: 0,
             wrongAnswer: "",
             wrongAnswerArr: [],
             correctAnswerArr: [],
