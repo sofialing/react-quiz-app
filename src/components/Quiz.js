@@ -35,20 +35,11 @@ class Quiz extends Component {
     };
 
     getMaxScore = () => {
-        const result = this.state.quiz.map(q => {
-            return parseInt(q.point);
-        });
-        // const result = this.state.quiz.map(q => {
-        //     return parseInt(q.point);
-        //     });
-        // );
-        // const oneResult = result.flat(1);
+        const maxScore = this.state.quiz
+            .map(question => Number(question.point))
+            .reduce((total, point) => total + point);
 
-        // const points = oneResult.reduce((a, b) => {
-        //     return a + b;
-        // });
-        // console.log(result);
-        return result;
+        return maxScore;
     };
 
     showNextQuestion = () => {
