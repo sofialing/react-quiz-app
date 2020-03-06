@@ -7,3 +7,18 @@ nav .nav-link.logout {
 .span-button {
 	cursor: pointer;
 }
+
+.flex-list {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 0.2rem;
+	border-bottom: 1px solid black;
+	padding-bottom: 0.2rem;
+}
+
+.delete-span {
+	cursor: pointer;
+	background-color: red;
+	padding: 0.2rem 0.3rem;
+	border-radius: 0.25rem;
+}
