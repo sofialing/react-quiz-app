@@ -1,10 +1,10 @@
-import React from "react";
-import QuizOptions from "./QuizOptions";
+import React from 'react'
+import QuizOptions from './QuizOptions'
 
-const QuizQuestion = props =
-    const { question, correct, wrong, point } = props.quiz;
-    const options = [...correct, ...wrong];
-    options.sort(() => 0.5 - Math.random());
+const QuizQuestion = props => {
+	const { question, correct, wrong, point } = props.quiz
+	const options = [...correct, ...wrong]
+	options.sort(() => 0.5 - Math.random())
 
 	return (
 		<div className='card mb-4'>
@@ -22,4 +22,4 @@ const QuizQuestion = props =
 	)
 }
 
-export default QuizQuestion;
+export default QuizQuestion
