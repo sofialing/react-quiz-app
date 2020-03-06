@@ -30,11 +30,17 @@ class AddQuestion extends React.Component {
             });
             return;
         }
+        if (this.state.point.length < 1) {
+            this.setState({
+                error: true,
+                errorMessage: "Don't forget to set a point for the question"
+            });
+            return;
+        }
         if (this.state.correctAnswerArr.length < 1) {
             this.setState({
                 error: true,
-                errorMessage:
-                    "You should add at least an correct answer with point "
+                errorMessage: "You should add at least an correct answer"
             });
             return;
         }
@@ -54,6 +60,7 @@ class AddQuestion extends React.Component {
                 quiz: firebase.firestore.FieldValue.arrayUnion({
                     correct: [...this.state.correctAnswerArr],
                     question: this.state.question,
+                    point: this.state.point,
                     wrong: [...this.state.wrongAnswerArr]
                 })
             });
@@ -96,22 +103,13 @@ class AddQuestion extends React.Component {
             });
             return;
         }
-        if (this.state.point.length === 0) {
-            this.setState({
-                error: true,
-                errorMessage:
-                    "Don't forget to sett a point for the correct answer"
-            });
-            return;
-        }
 
         this.setState({
             correctAnswerArr: [
                 ...this.state.correctAnswerArr,
-                { answer: this.state.correctAnswer, point: this.state.point }
+                this.state.correctAnswer
             ],
-            correctAnswer: "",
-            point: ""
+            correctAnswer: ""
         });
     };
 
@@ -151,12 +149,22 @@ class AddQuestion extends React.Component {
                             value={this.state.question}
                         />
                     </div>
+                    <div className="form-group">
+                        <label>Write a point</label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            placeholder="write a point"
+                            name="point"
+                            onChange={e => this.handleChange(e)}
+                            value={this.state.point}
+                        />
+                    </div>
                     <ul>
                         {this.state.correctAnswerArr.map((answer, i) => {
                             return (
                                 <li key={i} className="flex-list">
-                                    <span>The answer: {answer.answer}</span>
-                                    <span>Points: {answer.point}</span>
+                                    <span>The answer: {answer}</span>
                                     <span
                                         className="delete-span"
                                         onClick={() =>
@@ -177,14 +185,6 @@ class AddQuestion extends React.Component {
                             name="correctAnswer"
                             onChange={e => this.handleChange(e)}
                             value={this.state.correctAnswer}
-                        />
-                        <input
-                            type="number"
-                            className="form-control"
-                            placeholder="write a point"
-                            name="point"
-                            onChange={e => this.handleChange(e)}
-                            value={this.state.point}
                         />
                         <div className="input-group-prepend">
                             <span
