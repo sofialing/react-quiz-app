@@ -30,7 +30,7 @@ class AddQuestion extends React.Component {
             });
             return;
         }
-        if (this.state.point.length < 1) {
+        if (this.state.point < 1) {
             this.setState({
                 error: true,
                 errorMessage: "Don't forget to set a point for the question"
