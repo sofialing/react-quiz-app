@@ -61,6 +61,8 @@ class QuizOptions extends Component {
 			</div>
 		))
 
+		const buttonText = this.props.isLastQuestion ? 'Show result' : 'Next question'
+
 		return (
 			<form onSubmit={this.checkAnswer}>
 				{checkboxes}
@@ -69,7 +71,7 @@ class QuizOptions extends Component {
 				) : (
 					''
 				)}
-				<button className='btn btn-primary mt-3'>Next question</button>
+				<button className='btn btn-primary mt-3'>{buttonText}</button>
 			</form>
 		)
 	}

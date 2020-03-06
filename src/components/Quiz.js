@@ -42,6 +42,10 @@ class Quiz extends Component {
 		return maxScore
 	}
 
+	isLastQuestion = () => {
+		return this.state.current === this.state.quiz.length - 1
+	}
+
 	showNextQuestion = () => {
 		if (this.state.current < this.state.quiz.length - 1) {
 			this.setState(prevState => ({
@@ -78,6 +82,7 @@ class Quiz extends Component {
 				<QuizQuestion
 					quiz={this.state.quiz[this.state.current]}
 					onUpdateScore={this.UpdateScore}
+					isLastQuestion={this.isLastQuestion()}
 				/>
 				<Link to='/' className='btn btn-primary'>
 					Back to all quizzes

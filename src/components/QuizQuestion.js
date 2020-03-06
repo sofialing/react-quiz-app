@@ -15,6 +15,7 @@ const QuizQuestion = props => {
 					correct={correct}
 					onUpdateScore={props.onUpdateScore}
 					point={point}
+					isLastQuestion={props.isLastQuestion}
 				/>
 			</div>
 		</div>
