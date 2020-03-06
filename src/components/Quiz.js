@@ -42,7 +42,6 @@ class Quiz extends Component {
         return maxScore;
     };
 
-<<<<<<< HEAD
 	isLastQuestion = () => {
 		return this.state.current === this.state.quiz.length - 1
 	}
@@ -56,17 +55,6 @@ class Quiz extends Component {
 			this.setState({ quizOver: true })
 		}
 	}
-=======
-    showNextQuestion = () => {
-        if (this.state.current < this.state.quiz.length - 1) {
-            this.setState(prevState => ({
-                current: prevState.current + 1
-            }));
-        } else {
-            this.setState({ quizOver: true });
-        }
-    };
->>>>>>> master
 
     UpdateScore = point => {
         this.setState(prevState => ({
