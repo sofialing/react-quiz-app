@@ -7,6 +7,7 @@ class AddNewQuiz extends React.Component {
         name: "",
         disc: "",
         id: "",
+        imgSrc: "",
         addQuestionForm: true,
         error: false,
         errorMessage: ""
@@ -33,7 +34,8 @@ class AddNewQuiz extends React.Component {
         db.collection("quizzes")
             .add({
                 name: this.state.name,
-                description: this.state.disc
+                description: this.state.disc,
+                image: this.state.imgSrc
             })
             .then(data =>
                 this.setState({
@@ -54,6 +56,7 @@ class AddNewQuiz extends React.Component {
     render() {
         return this.state.addQuestionForm ? (
             <div>
+                <p>{this.state.imgSrc}</p>
                 {this.state.error ? <h1>{this.state.errorMessage}</h1> : ""}
                 <form onSubmit={e => this.AddNewQuiz(e)}>
                     <div className="form-group">
@@ -76,6 +79,17 @@ class AddNewQuiz extends React.Component {
                             placeholder="Add a description"
                             onChange={e => this.handleOnChange(e)}
                             value={this.state.disc}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Add an image url </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="imgSrc"
+                            placeholder="Add an image url"
+                            onChange={e => this.handleOnChange(e)}
+                            value={this.state.imgSrc}
                         />
                     </div>
                     <button>Add new quiz</button>
