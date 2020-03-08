@@ -50,23 +50,29 @@ class PasswordReset extends Component {
             ""
         );
         return (
-            <form onSubmit={e => this.handleSubmit(e)}>
-                {errorDiv}
-                <div className="form-group">
-                    <label htmlFor="inputEmail">Write your email address</label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        id="inputEmail"
-                        aria-describedby="emailHelp"
-                        name="email"
-                        onChange={e => this.handleChange(e)}
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary">
-                    Submit
-                </button>
-            </form>
+            <div>
+                <h1 className="text-center">Reset your password!</h1>
+                <form onSubmit={e => this.handleSubmit(e)}>
+                    {errorDiv}
+                    <div className="form-group">
+                        <label htmlFor="inputEmail">
+                            Write your email address
+                        </label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            id="inputEmail"
+                            aria-describedby="emailHelp"
+                            name="email"
+                            placeholder="Write your email here"
+                            onChange={e => this.handleChange(e)}
+                        />
+                    </div>
+                    <button type="submit" className="btn btn-primary">
+                        Submit
+                    </button>
+                </form>
+            </div>
         );
     }
 }

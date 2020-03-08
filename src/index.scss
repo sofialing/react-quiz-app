@@ -1,5 +1,16 @@
 @import '~bootstrap/scss/bootstrap.scss';
 
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	padding-top: 3rem;
+	background-color: #ccc;
+}
+
 nav .nav-link.logout {
 	cursor: pointer;
 }

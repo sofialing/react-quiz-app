@@ -23,10 +23,14 @@ class AddQuestion extends React.Component {
 
     handleAddQu = (e, id) => {
         e.preventDefault();
-        if (this.state.question.length < 6) {
+        if (
+            this.state.question.length < 6 ||
+            this.state.question.slice(-1) !== "?"
+        ) {
             this.setState({
                 error: true,
-                errorMessage: "your question should be more than 5 Characters"
+                errorMessage:
+                    "your question should be more than 5 characters and ends with '?' "
             });
             return;
         }
@@ -135,7 +139,14 @@ class AddQuestion extends React.Component {
     render() {
         return (
             <div>
-                <h2>{this.state.errorMessage}</h2>
+                <h1 className="text-center">Add a question!</h1>
+                {this.state.error ? (
+                    <div className="alert alert-warning mt-3" role="alert">
+                        {this.state.errorMessage}
+                    </div>
+                ) : (
+                    ""
+                )}
                 <form>
                     <div className="form-group">
                         <label>Write a question</label>
@@ -232,11 +243,12 @@ class AddQuestion extends React.Component {
                     <button
                         type="submit"
                         onClick={e => this.handleAddQu(e, this.props.id)}
+                        className="btn btn-primary"
                     >
                         ADD
                     </button>
                 </form>
-                <Link to="">go to the quiz</Link>
+                <Link to={"/quiz/" + this.props.id}>go to the quiz</Link>
             </div>
         );
     }

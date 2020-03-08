@@ -36,6 +36,7 @@ class SignUp extends React.Component {
     render() {
         return (
             <div>
+                <h1 className="text-center">Sign up here!</h1>
                 <form onSubmit={e => this.handleSignUp(e)}>
                     <div className="form-group">
                         <label htmlFor="exampleInputEmail1">
@@ -45,6 +46,7 @@ class SignUp extends React.Component {
                             type="email"
                             className="form-control"
                             id="exampleInputEmail1"
+                            placeholder="Write your email here"
                             aria-describedby="emailHelp"
                             name="userName"
                             onChange={e => this.handleChange(e)}
@@ -59,6 +61,7 @@ class SignUp extends React.Component {
                             type="password"
                             className="form-control"
                             id="exampleInputPassword1"
+                            placeholder="Write your password here"
                             name="password"
                             onChange={e => this.handleChange(e)}
                         />

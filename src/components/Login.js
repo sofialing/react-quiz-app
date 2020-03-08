@@ -34,7 +34,7 @@ class Login extends React.Component {
     render() {
         return (
             <div id="login">
-                <h1 className="mb-5">Login</h1>
+                <h1 className="mb-5 text-center">Login with your email</h1>
                 <form id="login-form" onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
@@ -42,6 +42,7 @@ class Login extends React.Component {
                             type="email"
                             id="email"
                             className="form-control"
+                            placeholder="Write your email here"
                             onChange={this.handleChange}
                         />
                     </div>
@@ -51,16 +52,17 @@ class Login extends React.Component {
                             type="password"
                             id="password"
                             className="form-control"
+                            placeholder="Write your password here"
                             onChange={this.handleChange}
                         />
                     </div>
 
                     <div className="d-flex">
-                        <button type="submit" className="btn btn-success">
+                        <button type="submit" className="btn btn-primary">
                             Log in
                         </button>
                     </div>
-                    <div>
+                    <div className=" mt-3">
                         <Link to="/PasswordReset">Forgot your password?</Link>
                     </div>
                     {this.state.errorMsg ? (

@@ -56,11 +56,11 @@ class AddNewQuiz extends React.Component {
     render() {
         return this.state.addQuestionForm ? (
             <div>
-                <p>{this.state.imgSrc}</p>
+                <h1 className="text-center">Add a new quiz!</h1>
                 {this.state.error ? <h1>{this.state.errorMessage}</h1> : ""}
                 <form onSubmit={e => this.AddNewQuiz(e)}>
                     <div className="form-group">
-                        <label>Add a name</label>
+                        <label>Add a name.</label>
                         <input
                             type="text"
                             className="form-control"
@@ -71,7 +71,7 @@ class AddNewQuiz extends React.Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Add a description </label>
+                        <label>Add a description.</label>
                         <input
                             type="text"
                             className="form-control"
@@ -82,7 +82,7 @@ class AddNewQuiz extends React.Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Add an image url </label>
+                        <label>Add an image url.</label>
                         <input
                             type="text"
                             className="form-control"
@@ -92,7 +92,7 @@ class AddNewQuiz extends React.Component {
                             value={this.state.imgSrc}
                         />
                     </div>
-                    <button>Add new quiz</button>
+                    <button className="btn btn-primary">Add new quiz</button>
                 </form>
             </div>
         ) : (

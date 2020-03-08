@@ -11,7 +11,7 @@ const Navbar = props => {
     };
 
     return (
-        <nav className="navbar navbar-expand navbar-light bg-light mb-3">
+        <nav className="navbar navbar-expand navbar-dark bg-dark fixed-top pt-0 pb-1">
             <Link to="/" className="navbar-brand">
                 Quiz
             </Link>
