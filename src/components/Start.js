@@ -1,7 +1,7 @@
 import React from "react";
 import QuizCard from "./QuizCard";
 import { db } from "../modules/firebase";
-import SignUp from "./signup";
+// import SignUp from "./signup";
 
 class Start extends React.Component {
     state = {

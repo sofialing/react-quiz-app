@@ -36,12 +36,10 @@ class SignUp extends React.Component {
     render() {
         return (
             <div>
-                <h1 className="text-center">Sign up here!</h1>
+                <h1 className=" mb-5 text-center">Sign up here!</h1>
                 <form onSubmit={e => this.handleSignUp(e)}>
                     <div className="form-group">
-                        <label htmlFor="exampleInputEmail1">
-                            Email address
-                        </label>
+                        <label htmlFor="exampleInputEmail1">Email</label>
                         <input
                             type="email"
                             className="form-control"
@@ -51,9 +49,6 @@ class SignUp extends React.Component {
                             name="userName"
                             onChange={e => this.handleChange(e)}
                         />
-                        <small id="emailHelp" className="form-text text-muted">
-                            We'll never share your email with anyone else.
-                        </small>
                     </div>
                     <div className="form-group">
                         <label htmlFor="exampleInputPassword1">Password</label>

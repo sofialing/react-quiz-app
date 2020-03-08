@@ -51,7 +51,7 @@ class PasswordReset extends Component {
         );
         return (
             <div>
-                <h1 className="text-center">Reset your password!</h1>
+                <h1 className="mb-5 text-center">Reset your password!</h1>
                 <form onSubmit={e => this.handleSubmit(e)}>
                     {errorDiv}
                     <div className="form-group">
