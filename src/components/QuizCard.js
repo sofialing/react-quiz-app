@@ -14,11 +14,15 @@ const QuizCard = props => {
             />
 
             <div className="card-body">
-                <h5 className="card-title">{name}</h5>
+                <h5 className="card-title">
+                    {name.charAt(0).toUpperCase() + name.slice(1)}
+                </h5>
                 <h6 class="card-subtitle mb-2 text-muted">
                     {quiz.length} questions
                 </h6>
-                <p className="card-text">{description}</p>
+                <p className="card-text">
+                    {description.charAt(0).toUpperCase() + description.slice(1)}
+                </p>
             </div>
             <div class="card-footer text-muted">
                 <Link to={"/quiz/" + id} className="btn btn-info">
