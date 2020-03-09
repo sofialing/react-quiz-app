@@ -161,16 +161,19 @@ class AddQuestion extends React.Component {
 							value={this.state.point}
 						/>
 					</div>
-					<ul>
+					<ul className='list-group'>
 						{this.state.correctAnswerArr.map((answer, i) => {
 							return (
-								<li key={i} className='flex-list'>
-									<span>The answer: {answer}</span>
-									<span
-										className='delete-span'
-										onClick={() => this.handleCorrectDelete(i)}>
-										X
+								<li key={i} className='list-group-item flex-list'>
+									<span>
+										Correct answer {i + 1}: {answer}
 									</span>
+									<button
+										type='button'
+										className='btn btn-sm btn-danger'
+										onClick={() => this.handleCorrectDelete(i)}>
+										<i class='far fa-trash-alt'></i>
+									</button>
 								</li>
 							)
 						})}
@@ -186,22 +189,25 @@ class AddQuestion extends React.Component {
 						/>
 						<div className='input-group-append'>
 							<button
-								className='btn btn-primary'
+								className='btn btn-primary btn-add'
 								onClick={this.handleCorrectAnswer}>
-								Add more correct answer
+								Add correct answer
 							</button>
 						</div>
 					</div>
-					<ul>
+					<ul className='list-group'>
 						{this.state.wrongAnswerArr.map((answer, i) => {
 							return (
-								<li key={i} className='flex-list'>
-									<span>The answer: {answer}</span>
-									<span
-										className='delete-span'
-										onClick={() => this.handleWrongDelete(i)}>
-										x
+								<li key={i} className='list-group-item flex-list'>
+									<span>
+										Incorrect answer {i + 1}: {answer}
 									</span>
+									<button
+										type='button'
+										className='btn btn-sm btn-danger'
+										onClick={() => this.handleWrongDelete(i)}>
+										<i class='far fa-trash-alt'></i>
+									</button>
 								</li>
 							)
 						})}
@@ -217,9 +223,9 @@ class AddQuestion extends React.Component {
 						/>
 						<div className='input-group-append'>
 							<button
-								className='btn btn-primary'
+								className='btn btn-primary btn-add'
 								onClick={this.handleIncorrectAnswer}>
-								Add more incorrect answer
+								Add incorrect answer
 							</button>
 						</div>
 					</div>
