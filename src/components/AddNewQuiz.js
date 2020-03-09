@@ -35,7 +35,8 @@ class AddNewQuiz extends React.Component {
 			.add({
 				name: this.state.name,
 				description: this.state.disc,
-				image: this.state.imgSrc
+				image: this.state.imgSrc,
+				createdBy: this.props.user.email
 			})
 			.then(data =>
 				this.setState({

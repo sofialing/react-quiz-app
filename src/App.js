@@ -45,7 +45,15 @@ class App extends Component {
                                 )}
                             />
                             <Route path="/quiz/:id" component={Quiz} />
-                            <Route path="/addQuiz" component={AddNewQuiz} />
+                            <Route
+                                path="/addQuiz"
+                                render={props => (
+                                    <AddNewQuiz
+                                        user={this.state.user}
+                                        {...props}
+                                    />
+                                )}
+                            />
                             <Route path="/login" component={Login} />
                             <Route path="/signUp" component={SignUp} />
                             <Route
