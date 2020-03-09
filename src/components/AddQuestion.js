@@ -80,7 +80,8 @@ class AddQuestion extends React.Component {
         });
     };
 
-    handleIncorrectAnswer = () => {
+    handleIncorrectAnswer = e => {
+        e.preventDefault();
         if (this.state.wrongAnswer.length < 1) {
             this.setState({
                 error: true,
@@ -97,7 +98,8 @@ class AddQuestion extends React.Component {
         });
     };
 
-    handleCorrectAnswer = () => {
+    handleCorrectAnswer = e => {
+        e.preventDefault();
         console.log(this.state.correctAnswerArr);
         if (this.state.correctAnswer.length < 1) {
             this.setState({
@@ -187,7 +189,7 @@ class AddQuestion extends React.Component {
                             );
                         })}
                     </ul>
-                    <div className="input-group mb-4">
+                    <div className="input-group my-2">
                         <input
                             type="text"
                             className="form-control"
@@ -196,19 +198,13 @@ class AddQuestion extends React.Component {
                             onChange={e => this.handleChange(e)}
                             value={this.state.correctAnswer}
                         />
-                        <div className="input-group-prepend">
+                        <div className="input-group-append">
                             <button
                                 className="btn btn-primary"
                                 onClick={this.handleCorrectAnswer}
                             >
                                 Add more correct answer
                             </button>
-                            {/* <span
-								className='input-group-text span-button'
-								onClick={this.handleCorrectAnswer}
-							>
-								Add more correct answer
-							</span> */}
                         </div>
                     </div>
                     <ul>
@@ -228,7 +224,7 @@ class AddQuestion extends React.Component {
                             );
                         })}
                     </ul>
-                    <div className="input-group mb-3">
+                    <div className="input-group my-2">
                         <input
                             type="text"
                             className="form-control"
@@ -237,25 +233,19 @@ class AddQuestion extends React.Component {
                             onChange={e => this.handleChange(e)}
                             value={this.state.wrongAnswer}
                         />
-                        <div className="input-group-prepend ">
+                        <div className="input-group-append">
                             <button
                                 className="btn btn-primary"
                                 onClick={this.handleIncorrectAnswer}
                             >
                                 Add more incorrect answer
                             </button>
-                            {/* <span
-								className='input-group-text span-button'
-								onClick={this.handleIncorrectAnswer}
-							>
-								Add more incorrect answer
-							</span> */}
                         </div>
                     </div>
                     <button
                         type="submit"
                         onClick={e => this.handleAddQu(e, this.props.id)}
-                        className="btn btn-primary mb-3"
+                        className="btn btn-primary my-3"
                     >
                         Add question
                     </button>
