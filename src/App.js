@@ -37,7 +37,13 @@ class App extends Component {
                     <Navbar user={this.state.user} />
                     <div className="container my-5">
                         <Switch>
-                            <Route exact path="/" component={Start} />
+                            <Route
+                                exact
+                                path="/"
+                                render={props => (
+                                    <Start user={this.state.user} {...props} />
+                                )}
+                            />
                             <Route path="/quiz/:id" component={Quiz} />
                             <Route path="/addQuiz" component={AddNewQuiz} />
                             <Route path="/login" component={Login} />
