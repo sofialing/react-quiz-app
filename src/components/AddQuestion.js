@@ -1,7 +1,7 @@
-import React from 'react';
-import { db } from '../modules/firebase';
-import firebase from 'firebase/app';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { db } from '../modules/firebase'
+import firebase from 'firebase/app'
+import { Link } from 'react-router-dom'
 
 class AddQuestion extends React.Component {
 	state = {
@@ -13,50 +13,47 @@ class AddQuestion extends React.Component {
 		correctAnswerArr: [],
 		error: false,
 		errorMessage: ''
-	};
+	}
 
 	handleChange = e => {
 		this.setState({
 			[e.target.name]: e.target.value
-		});
-	};
+		})
+	}
 
 	handleAddQu = (e, id) => {
-		e.preventDefault();
-		if (
-			this.state.question.length < 6 ||
-			this.state.question.slice(-1) !== '?'
-		) {
+		e.preventDefault()
+		if (this.state.question.length < 6 || this.state.question.slice(-1) !== '?') {
 			this.setState({
 				error: true,
 				errorMessage:
 					"Your question should be more than 5 characters and end with '?' "
-			});
-			return;
+			})
+			return
 		}
 		if (this.state.point < 1) {
 			this.setState({
 				error: true,
 				errorMessage: "Don't forget to set a point for the question"
-			});
-			return;
+			})
+			return
 		}
 		if (this.state.correctAnswerArr.length < 1) {
 			this.setState({
 				error: true,
 				errorMessage: 'You should add at least one correct answer'
-			});
-			return;
+			})
+			return
 		}
 		if (this.state.wrongAnswerArr.length < 1) {
 			this.setState({
 				error: true,
 				errorMessage: 'You should add at least one incorrect answer '
-			});
-			return;
+			})
+			return
 		}
 
-		console.log(this.state.wrongAnswerArr);
+		console.log(this.state.wrongAnswerArr)
 
 		db.collection('quizzes')
 			.doc(id)
@@ -67,7 +64,7 @@ class AddQuestion extends React.Component {
 					point: this.state.point,
 					wrong: [...this.state.wrongAnswerArr]
 				})
-			});
+			})
 		this.setState({
 			question: '',
 			correctAnswer: '',
@@ -77,64 +74,58 @@ class AddQuestion extends React.Component {
 			correctAnswerArr: [],
 			error: false,
 			errorMessage: ''
-		});
-	};
+		})
+	}
 
-	handleIncorrectAnswer = () => {
+	handleIncorrectAnswer = e => {
+		e.preventDefault()
 		if (this.state.wrongAnswer.length < 1) {
 			this.setState({
 				error: true,
 				errorMessage: "Incorrect answer shouldn't be empty"
-			});
-			return;
+			})
+			return
 		}
 		this.setState({
-			wrongAnswerArr: [
-				...this.state.wrongAnswerArr,
-				this.state.wrongAnswer
-			],
+			wrongAnswerArr: [...this.state.wrongAnswerArr, this.state.wrongAnswer],
 			wrongAnswer: ''
-		});
-	};
+		})
+	}
 
-	handleCorrectAnswer = () => {
-		console.log(this.state.correctAnswerArr);
+	handleCorrectAnswer = e => {
+		e.preventDefault()
+		console.log(this.state.correctAnswerArr)
 		if (this.state.correctAnswer.length < 1) {
 			this.setState({
 				error: true,
 				errorMessage: "Correct answer shouldn't be empty"
-			});
-			return;
+			})
+			return
 		}
 
 		this.setState({
-			correctAnswerArr: [
-				...this.state.correctAnswerArr,
-				this.state.correctAnswer
-			],
+			correctAnswerArr: [...this.state.correctAnswerArr, this.state.correctAnswer],
 			correctAnswer: ''
-		});
-	};
+		})
+	}
 
 	handleCorrectDelete = i => {
-		let newCorrectAnswer = this.state.correctAnswerArr.filter(
-			(c, index) => {
-				return i !== index;
-			}
-		);
+		let newCorrectAnswer = this.state.correctAnswerArr.filter((c, index) => {
+			return i !== index
+		})
 		this.setState({
 			correctAnswerArr: newCorrectAnswer
-		});
-	};
+		})
+	}
 
 	handleWrongDelete = i => {
 		let newWrongAnswer = this.state.wrongAnswerArr.filter((c, index) => {
-			return i !== index;
-		});
+			return i !== index
+		})
 		this.setState({
 			wrongAnswerArr: newWrongAnswer
-		});
-	};
+		})
+	}
 
 	render() {
 		return (
@@ -177,17 +168,14 @@ class AddQuestion extends React.Component {
 									<span>The answer: {answer}</span>
 									<span
 										className='delete-span'
-										onClick={() =>
-											this.handleCorrectDelete(i)
-										}
-									>
+										onClick={() => this.handleCorrectDelete(i)}>
 										X
 									</span>
 								</li>
-							);
+							)
 						})}
 					</ul>
-					<div className='input-group mb-4'>
+					<div className='input-group my-2'>
 						<input
 							type='text'
 							className='form-control'
@@ -196,19 +184,12 @@ class AddQuestion extends React.Component {
 							onChange={e => this.handleChange(e)}
 							value={this.state.correctAnswer}
 						/>
-						<div className='input-group-prepend'>
+						<div className='input-group-append'>
 							<button
 								className='btn btn-primary'
-								onClick={this.handleCorrectAnswer}
-							>
+								onClick={this.handleCorrectAnswer}>
 								Add more correct answer
 							</button>
-							{/* <span
-								className='input-group-text span-button'
-								onClick={this.handleCorrectAnswer}
-							>
-								Add more correct answer
-							</span> */}
 						</div>
 					</div>
 					<ul>
@@ -218,17 +199,14 @@ class AddQuestion extends React.Component {
 									<span>The answer: {answer}</span>
 									<span
 										className='delete-span'
-										onClick={() =>
-											this.handleWrongDelete(i)
-										}
-									>
+										onClick={() => this.handleWrongDelete(i)}>
 										x
 									</span>
 								</li>
-							);
+							)
 						})}
 					</ul>
-					<div className='input-group mb-3'>
+					<div className='input-group my-2'>
 						<input
 							type='text'
 							className='form-control'
@@ -237,33 +215,25 @@ class AddQuestion extends React.Component {
 							onChange={e => this.handleChange(e)}
 							value={this.state.wrongAnswer}
 						/>
-						<div className='input-group-prepend '>
+						<div className='input-group-append'>
 							<button
 								className='btn btn-primary'
-								onClick={this.handleIncorrectAnswer}
-							>
+								onClick={this.handleIncorrectAnswer}>
 								Add more incorrect answer
 							</button>
-							{/* <span
-								className='input-group-text span-button'
-								onClick={this.handleIncorrectAnswer}
-							>
-								Add more incorrect answer
-							</span> */}
 						</div>
 					</div>
 					<button
 						type='submit'
 						onClick={e => this.handleAddQu(e, this.props.id)}
-						className='btn btn-primary mb-3'
-					>
+						className='btn btn-primary my-3'>
 						Add question
 					</button>
 				</form>
 				<Link to={'/quiz/' + this.props.id}>Go to the quiz</Link>
 			</div>
-		);
+		)
 	}
 }
 
-export default AddQuestion;
+export default AddQuestion
