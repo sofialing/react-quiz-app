@@ -1,6 +1,6 @@
-import React from 'react';
-import AddQuestion from './AddQuestion';
-import { db } from '../modules/firebase';
+import React from 'react'
+import AddQuestion from './AddQuestion'
+import { db } from '../modules/firebase'
 
 class AddNewQuiz extends React.Component {
 	state = {
@@ -11,23 +11,23 @@ class AddNewQuiz extends React.Component {
 		addQuestionForm: true,
 		error: false,
 		errorMessage: ''
-	};
+	}
 	AddNewQuiz = e => {
-		e.preventDefault();
+		e.preventDefault()
 		if (this.state.name.length < 4) {
 			this.setState({
 				error: true,
 				errorMessage: 'Enter a name before adding a new quiz.'
-			});
-			return;
+			})
+			return
 		}
 
 		if (this.state.disc.length < 4) {
 			this.setState({
 				error: true,
 				errorMessage: 'Write a description before adding a new quiz.'
-			});
-			return;
+			})
+			return
 		}
 
 		// || this.state.disc.length < 4) return;
@@ -43,18 +43,22 @@ class AddNewQuiz extends React.Component {
 					id: data.id
 				})
 			)
-			.catch(error => console.log(error));
+			.catch(error => console.log(error))
 		this.setState({
 			addQuestionForm: false
-		});
-	};
+		})
+	}
 
 	handleOnChange = e => {
 		this.setState({
 			[e.target.name]: e.target.value
-		});
-	};
+		})
+	}
 	render() {
+		if (!this.props.user) {
+			this.props.history.push('/login')
+		}
+
 		return this.state.addQuestionForm ? (
 			<div>
 				<h1 className='text-center'>Add a new quiz</h1>
@@ -104,8 +108,8 @@ class AddNewQuiz extends React.Component {
 			</div>
 		) : (
 			<AddQuestion id={this.state.id} />
-		);
+		)
 	}
 }
 
-export default AddNewQuiz;
+export default AddNewQuiz
