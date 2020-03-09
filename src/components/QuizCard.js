@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import quizImage from "../images/quiz.jpg";
 
 const QuizCard = props => {
-    const { name, description, id, quiz, image, user } = props.quiz;
+    const { name, description, id, quiz, image } = props.quiz;
 
     return (
         <div className="card text-center mb-4">
