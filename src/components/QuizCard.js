@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import quizImage from "../images/quiz.jpg";
 
 const QuizCard = props => {
     const { name, description, id, quiz, image, createdBy } = props.quiz;
+    // const [user, setCount] = useState(0);
+    console.log("createdBy", createdBy);
+    console.log("props.user", props.user);
 
     return (
         <article className="col-12 col-md-4  mb-4">
@@ -30,13 +33,17 @@ const QuizCard = props => {
                     <Link to={"/quiz/" + id} className="btn btn-info mx-2">
                         Start Quiz
                     </Link>
-                    {props.user === createdBy ? (
-                        <button
-                            className="btn btn-danger mx-2"
-                            onClick={() => props.deleteQuiz(id)}
-                        >
-                            Delete Quiz
-                        </button>
+                    {props.user ? (
+                        props.user.email === createdBy ? (
+                            <button
+                                className="btn btn-danger mx-2"
+                                onClick={() => props.deleteQuiz(id)}
+                            >
+                                Delete Quiz
+                            </button>
+                        ) : (
+                            ""
+                        )
                     ) : (
                         ""
                     )}
