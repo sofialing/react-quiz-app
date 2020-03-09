@@ -172,7 +172,7 @@ class AddQuestion extends React.Component {
 										type='button'
 										className='btn btn-sm btn-danger'
 										onClick={() => this.handleCorrectDelete(i)}>
-										<i class='far fa-trash-alt'></i>
+										<i className='far fa-trash-alt'></i>
 									</button>
 								</li>
 							)
@@ -206,7 +206,7 @@ class AddQuestion extends React.Component {
 										type='button'
 										className='btn btn-sm btn-danger'
 										onClick={() => this.handleWrongDelete(i)}>
-										<i class='far fa-trash-alt'></i>
+										<i className='far fa-trash-alt'></i>
 									</button>
 								</li>
 							)
