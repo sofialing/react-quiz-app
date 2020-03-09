@@ -14,6 +14,11 @@ $body-color: #ffffff;
 // Cards
 $card-border-color: none;
 
+// List group
+$list-group-color: #ffffff;
+$list-group-bg: transparent;
+$list-group-border-color: $light;
+
 // Checkboxes / radios
 $custom-control-indicator-checked-bg: $primary;
 $custom-control-indicator-border-color: $primary;
@@ -44,9 +49,10 @@ nav .nav-link.logout {
 .flex-list {
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 0.2rem;
-	border-bottom: 1px solid black;
-	padding-bottom: 0.2rem;
+	align-items: center;
+	// margin-bottom: 0.2rem;
+	// border-bottom: 1px solid black;
+	// padding-bottom: 0.2rem;
 }
 
 .delete-span {
@@ -83,4 +89,15 @@ nav .nav-link.logout {
 	.custom-control-label {
 		padding-left: 0.25rem;
 	}
+}
+
+.list-group-item:last-child {
+	margin-bottom: 1rem;
+}
+.list-group-item:first-child {
+	margin-top: 1rem;
+}
+
+.btn-add {
+	width: 200px;
 }
