@@ -43,7 +43,7 @@ class Start extends React.Component {
 			<div>
 				<h1 className='text-center mb-5'>Quizzes</h1>
 				<p className='text-center'>Sign up if you want to add a new quiz!</p>
-				<div className='card-deck'>{quizzez}</div>
+				<div className='row'>{quizzez}</div>
 			</div>
 		)
 	}
