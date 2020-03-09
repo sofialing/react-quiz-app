@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import quizImage from "../images/quiz.jpg";
 
 const QuizCard = props => {
     const { name, description, id, quiz, image, createdBy } = props.quiz;
-    // const [user, setCount] = useState(0);
     console.log("createdBy", createdBy);
     console.log("props.user", props.user);
 
