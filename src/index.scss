@@ -1,3 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Inter:400,500,700&display=swap');
+
+$font-family-sans-serif: 'Inter', sans-serif;
+$headings-font-weight: 700;
+
+$primary: #54bfbf;
+$info: #54bfbf;
+$dark: #2c3840;
+$light: #bfd1d9;
+
+$body-bg: #3c4e59;
+$body-color: #ffffff;
+
+// Cards
+$card-border-color: none;
+
+// Checkboxes / radios
+$custom-control-indicator-checked-bg: $primary;
+$custom-control-indicator-border-color: $primary;
+$custom-control-indicator-focus-box-shadow: none;
+$custom-control-indicator-focus-border-color: none;
+
 @import '~bootstrap/scss/bootstrap.scss';
 
 * {
@@ -8,7 +30,7 @@
 
 body {
 	padding-top: 3rem;
-	background-color: #ccc;
+	// background-color: #ccc;
 }
 
 nav .nav-link.logout {
@@ -36,4 +58,29 @@ nav .nav-link.logout {
 
 .input-result {
 	font-weight: bold;
+}
+
+.btn-info,
+.btn-primary {
+	color: #ffffff;
+}
+
+.card {
+	color: $gray-900;
+
+	.card-subtitle {
+		font-weight: 500;
+	}
+
+	.card-footer {
+		background-color: transparent;
+		padding-bottom: 1.5rem;
+	}
+}
+
+.custom-control {
+	margin-bottom: 0.25rem;
+	.custom-control-label {
+		padding-left: 0.25rem;
+	}
 }
