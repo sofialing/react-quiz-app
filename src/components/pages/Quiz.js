@@ -19,7 +19,6 @@ class Quiz extends Component {
 
 	// Get selected quiz from Firebase
 	getQuiz = () => {
-		console.log('get quiz')
 		db.collection('quizzes')
 			.doc(this.props.match.params.id)
 			.get()
