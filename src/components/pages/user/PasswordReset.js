@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { auth } from '../modules/firebase'
+import { auth } from '../../../modules/firebase'
 
 class PasswordReset extends Component {
 	state = {

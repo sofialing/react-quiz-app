@@ -1,7 +1,6 @@
 import React from 'react'
-import QuizCard from './QuizCard'
-import { db } from '../modules/firebase'
-// import SignUp from "./signup";
+import QuizCard from '../quiz/QuizCard'
+import { db } from '../../modules/firebase'
 
 class Start extends React.Component {
 	state = {
@@ -64,10 +63,14 @@ class Start extends React.Component {
 			<div>
 				<h1 className='text-center mb-5'>Quizzes</h1>
 				<div className='row'>{quizzez}</div>
-				<p className='text-center mt-4'>
-					If you want to add a new quiz, please go to sign up and register with
-					your email
-				</p>
+				{!this.props.user ? (
+					<p className='text-center mt-4'>
+						If you want to add a new quiz, please go to sign up and register
+						with your email
+					</p>
+				) : (
+					''
+				)}
 			</div>
 		)
 	}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { db } from '../modules/firebase'
+import { db } from '../../modules/firebase'
 
 class createQuiz extends React.Component {
 	state = {

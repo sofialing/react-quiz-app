@@ -1,5 +1,5 @@
 import React from 'react'
-import { auth } from '../modules/firebase'
+import { auth } from '../../../modules/firebase'
 import { Link } from 'react-router-dom'
 
 class Login extends React.Component {
@@ -65,7 +65,7 @@ class Login extends React.Component {
 						</button>
 					</div>
 					<div className=' mt-3'>
-						<Link to='/PasswordReset'>Forgot your password?</Link>
+						<Link to='/password-reset'>Forgot your password?</Link>
 					</div>
 					{this.state.errorMsg ? (
 						<div className='alert alert-warning mt-3' role='alert'>

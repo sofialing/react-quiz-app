@@ -1,6 +1,6 @@
 import React from 'react'
-import AddQuestion from './AddQuestion'
-import CreateQuiz from './CreateQuiz'
+import AddQuestion from '../createQuiz/AddQuestion'
+import CreateQuiz from '../createQuiz/CreateQuiz'
 
 class AddNewQuiz extends React.Component {
 	state = {

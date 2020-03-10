@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { auth } from '../modules/firebase'
+import { auth } from '../../modules/firebase'
 
 const Navbar = props => {
 	// User signed out
@@ -34,7 +34,7 @@ const Navbar = props => {
 					</li>
 					{props.user ? (
 						<li className='nav-item'>
-							<NavLink to='/addQuiz' className='nav-link'>
+							<NavLink to='/add-quiz' className='nav-link'>
 								Add Quiz
 							</NavLink>
 						</li>
@@ -59,7 +59,7 @@ const Navbar = props => {
 								</NavLink>
 							</li>
 							<li className='nav-item'>
-								<NavLink to='/signUp' className='nav-link'>
+								<NavLink to='/sign-up' className='nav-link'>
 									Sign up
 								</NavLink>
 							</li>

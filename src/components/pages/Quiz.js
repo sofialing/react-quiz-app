@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import QuizQuestion from './QuizQuestion'
+import QuizQuestion from '../quiz/QuizQuestion'
 import Result from './Result'
-import { db } from '../modules/firebase'
+import { db } from '../../modules/firebase'
 import { Link } from 'react-router-dom'
 
 class Quiz extends Component {
@@ -19,6 +19,7 @@ class Quiz extends Component {
 
 	// Get selected quiz from Firebase
 	getQuiz = () => {
+		console.log('get quiz')
 		db.collection('quizzes')
 			.doc(this.props.match.params.id)
 			.get()
@@ -28,6 +29,8 @@ class Quiz extends Component {
 						name: doc.data().name,
 						quiz: [...doc.data().quiz]
 					})
+				} else {
+					this.props.history.push('/')
 				}
 			})
 			.catch(error => {

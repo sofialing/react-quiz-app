@@ -1,5 +1,5 @@
 import React from 'react'
-import { auth } from '../modules/firebase'
+import { auth } from '../../../modules/firebase'
 
 class SignUp extends React.Component {
 	state = {

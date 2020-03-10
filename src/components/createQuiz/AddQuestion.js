@@ -1,5 +1,5 @@
 import React from 'react'
-import { db } from '../modules/firebase'
+import { db } from '../../modules/firebase'
 import firebase from 'firebase/app'
 import { Link } from 'react-router-dom'
 
