@@ -1,48 +1,50 @@
-import React from 'react';
-import QuizCard from './QuizCard';
-import { db } from '../modules/firebase';
+import React from 'react'
+import QuizCard from './QuizCard'
+import { db } from '../modules/firebase'
 // import SignUp from "./signup";
 
 class Start extends React.Component {
 	state = {
 		quiz: null
-	};
+	}
 
+	componentDidMount() {
+		this.gitData()
+	}
+
+	// Get all quizzes from Firebase
 	gitData = () => {
 		db.collection('quizzes')
 			.get()
 			.then(response => {
-				const quiz = [];
+				const quiz = []
 				response.forEach(doc => {
 					if (!doc.data().quiz) {
-						return;
+						return
 					}
 					quiz.push({
 						id: doc.id,
 						...doc.data()
-					});
-				});
+					})
+				})
 				this.setState({
 					quiz
-				});
-				console.log(quiz);
-			});
-	};
-	componentDidMount() {
-		this.gitData();
+				})
+			})
 	}
+
+	// Delete quiz from Firebase
 	deleteQuiz = id => {
-		console.log('hi');
 		db.collection('quizzes')
 			.doc(id)
 			.delete()
 			.then(() => {
-				this.gitData();
+				this.gitData()
 			})
 			.catch(error => {
-				console.error('Error removing document: ', error);
-			});
-	};
+				console.error('Error removing document: ', error)
+			})
+	}
 
 	render() {
 		const quizzez = this.state.quiz
@@ -54,21 +56,21 @@ class Start extends React.Component {
 							deleteQuiz={this.deleteQuiz}
 							user={this.props.user}
 						/>
-					);
+					)
 			  })
-			: '';
+			: ''
 
 		return (
 			<div>
 				<h1 className='text-center mb-5'>Quizzes</h1>
 				<div className='row'>{quizzez}</div>
 				<p className='text-center mt-4'>
-					If you want to add a new quiz, please go to sign up and
-					register with your email
+					If you want to add a new quiz, please go to sign up and register with
+					your email
 				</p>
 			</div>
-		);
+		)
 	}
 }
 
-export default Start;
+export default Start

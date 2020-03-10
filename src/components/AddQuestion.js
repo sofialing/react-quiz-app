@@ -12,17 +12,22 @@ class AddQuestion extends React.Component {
 		wrongAnswerArr: [],
 		correctAnswerArr: [],
 		error: false,
-		errorMessage: ''
+		errorMessage: '',
+		questionAdded: false
 	}
 
+	// Handle change in input fields and save to state
 	handleChange = e => {
 		this.setState({
 			[e.target.name]: e.target.value
 		})
 	}
 
+	// Add question to the quiz in firebase
 	handleAddQu = (e, id) => {
 		e.preventDefault()
+
+		// Check if question is at least 5 characters and ends with '?'
 		if (this.state.question.length < 6 || this.state.question.slice(-1) !== '?') {
 			this.setState({
 				error: true,
@@ -31,6 +36,8 @@ class AddQuestion extends React.Component {
 			})
 			return
 		}
+
+		// Check if a point has been added
 		if (this.state.point < 1) {
 			this.setState({
 				error: true,
@@ -38,6 +45,8 @@ class AddQuestion extends React.Component {
 			})
 			return
 		}
+
+		// Check if at least one correct answer have been added
 		if (this.state.correctAnswerArr.length < 1) {
 			this.setState({
 				error: true,
@@ -45,6 +54,8 @@ class AddQuestion extends React.Component {
 			})
 			return
 		}
+
+		// Check if at least one incorrect answer have been added
 		if (this.state.wrongAnswerArr.length < 1) {
 			this.setState({
 				error: true,
@@ -53,8 +64,7 @@ class AddQuestion extends React.Component {
 			return
 		}
 
-		console.log(this.state.wrongAnswerArr)
-
+		// Add to Firebase
 		db.collection('quizzes')
 			.doc(id)
 			.update({
@@ -65,6 +75,8 @@ class AddQuestion extends React.Component {
 					wrong: [...this.state.wrongAnswerArr]
 				})
 			})
+
+		// Reset state
 		this.setState({
 			question: '',
 			correctAnswer: '',
@@ -73,12 +85,15 @@ class AddQuestion extends React.Component {
 			wrongAnswerArr: [],
 			correctAnswerArr: [],
 			error: false,
-			errorMessage: ''
+			errorMessage: '',
+			questionAdded: true
 		})
 	}
 
+	// Handle incorrect answers and save to state
 	handleIncorrectAnswer = e => {
 		e.preventDefault()
+
 		if (this.state.wrongAnswer.length < 1) {
 			this.setState({
 				error: true,
@@ -86,15 +101,17 @@ class AddQuestion extends React.Component {
 			})
 			return
 		}
+
 		this.setState({
 			wrongAnswerArr: [...this.state.wrongAnswerArr, this.state.wrongAnswer],
 			wrongAnswer: ''
 		})
 	}
 
+	// Handle correct answers and save to state
 	handleCorrectAnswer = e => {
 		e.preventDefault()
-		console.log(this.state.correctAnswerArr)
+
 		if (this.state.correctAnswer.length < 1) {
 			this.setState({
 				error: true,
@@ -109,6 +126,7 @@ class AddQuestion extends React.Component {
 		})
 	}
 
+	// Delete a correct answer from state
 	handleCorrectDelete = i => {
 		let newCorrectAnswer = this.state.correctAnswerArr.filter((c, index) => {
 			return i !== index
@@ -118,6 +136,7 @@ class AddQuestion extends React.Component {
 		})
 	}
 
+	// Delete a incorrect answer from state
 	handleWrongDelete = i => {
 		let newWrongAnswer = this.state.wrongAnswerArr.filter((c, index) => {
 			return i !== index
@@ -236,7 +255,12 @@ class AddQuestion extends React.Component {
 						Add question
 					</button>
 				</form>
-				<Link to={'/quiz/' + this.props.id}>Go to the quiz</Link>
+
+				{this.state.questionAdded ? (
+					<Link to={'/quiz/' + this.props.id}>Go to the quiz</Link>
+				) : (
+					''
+				)}
 			</div>
 		)
 	}

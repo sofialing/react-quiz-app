@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Result = props => {
 	const resultMsg =
@@ -13,13 +13,9 @@ const Result = props => {
 				</h2>
 				<h3>
 					Your result on the quiz:{' '}
-					<span className='input-result'>{props.result.name}</span>{' '}
-					was{' '}
-					<span className='input-result'>{props.result.score}</span>{' '}
-					out of{' '}
-					<span className='input-result'>
-						{props.result.maxScore}
-					</span>
+					<span className='input-result'>{props.result.name}</span> was{' '}
+					<span className='input-result'>{props.result.score}</span> out of{' '}
+					<span className='input-result'>{props.result.maxScore}</span>
 				</h3>
 			</div>
 		) : (
@@ -27,16 +23,12 @@ const Result = props => {
 				<h2 className='alert-heading'>Good job!</h2>
 				<h3>
 					Your result on the quiz:{' '}
-					<span className='input-result'>{props.result.name}</span>{' '}
-					was{' '}
-					<span className='input-result'>{props.result.score}</span>{' '}
-					out of{' '}
-					<span className='input-result'>
-						{props.result.maxScore}
-					</span>
+					<span className='input-result'>{props.result.name}</span> was{' '}
+					<span className='input-result'>{props.result.score}</span> out of{' '}
+					<span className='input-result'>{props.result.maxScore}</span>
 				</h3>
 			</div>
-		);
+		)
 	return (
 		<div className='d-flex justify-content-center align-items-center flex-column'>
 			{resultMsg}
@@ -44,7 +36,7 @@ const Result = props => {
 				Back to Quizzes
 			</Link>
 		</div>
-	);
-};
+	)
+}
 
-export default Result;
+export default Result

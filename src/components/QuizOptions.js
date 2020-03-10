@@ -5,11 +5,13 @@ class QuizOptions extends Component {
 		userAnswer: []
 	}
 
+	// Handle checkboxes and save to state
 	handleCheckboxes = e => {
 		const { value } = e.target
 		const { userAnswer } = this.state
 		const { correct } = this.props
 
+		// Check if userAnswer includes clicked value, if so remove it
 		if (userAnswer.includes(value)) {
 			const newUserAnswer = [...userAnswer]
 			const i = newUserAnswer.indexOf(value)
@@ -18,19 +20,29 @@ class QuizOptions extends Component {
 			this.setState({
 				userAnswer: newUserAnswer
 			})
-		} else if (userAnswer.length === correct.length) {
-			e.preventDefault()
-		} else {
-			this.setState(prevState => ({
-				userAnswer: [...prevState.userAnswer, value]
-			}))
+
+			return
 		}
+
+		// Prevent user to select all options
+		if (userAnswer.length === correct.length) {
+			e.preventDefault()
+			return
+		}
+
+		this.setState(prevState => ({
+			userAnswer: [...prevState.userAnswer, value]
+		}))
 	}
 
+	// Handle radios and save to state
 	handleRadio = e => {
-		this.setState({ userAnswer: e.target.value })
+		this.setState({
+			userAnswer: e.target.value
+		})
 	}
 
+	// Check if selected options is correct and calculate points
 	checkAnswer = e => {
 		e.preventDefault()
 
@@ -44,6 +56,7 @@ class QuizOptions extends Component {
 		this.props.onUpdateScore(totalPoint)
 	}
 
+	// Render checkboxes with answer options
 	getCheckboxes = () => {
 		const checkboxes = this.props.options.map((option, i) => (
 			<div className='custom-control custom-checkbox' key={i}>
@@ -64,6 +77,7 @@ class QuizOptions extends Component {
 		return checkboxes
 	}
 
+	// Render radios with answer options
 	getRadios = () => {
 		const radios = this.props.options.map((option, i) => (
 			<div className='custom-control custom-radio' key={i}>

@@ -9,12 +9,14 @@ class Login extends React.Component {
 		errorMsg: false
 	}
 
+	// Handle change in input fields and save to state
 	handleChange = e => {
 		this.setState({
 			[e.target.id]: e.target.value
 		})
 	}
 
+	// Handle login and redirect if succeeded
 	handleSubmit = e => {
 		e.preventDefault()
 

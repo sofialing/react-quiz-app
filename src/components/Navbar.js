@@ -1,76 +1,74 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
-import { auth } from "../modules/firebase";
+import React from 'react'
+import { Link, NavLink } from 'react-router-dom'
+import { auth } from '../modules/firebase'
 
 const Navbar = props => {
-    const handleSignOut = e => {
-        auth.signOut().then(data => {
-            //skicka vidare till start eller login
-            console.log(props.user.email, "signed out");
-        });
-    };
+	// User signed out
+	const handleSignOut = () => {
+		auth.signOut().then(() => {
+			console.info(props.user.email, 'signed out')
+		})
+	}
 
-    return (
-        <nav className="navbar navbar-expand navbar-dark bg-dark fixed-top pt-0 pb-1">
-            <Link to="/" className="navbar-brand">
-                Quiz
-            </Link>
-            <button
-                className="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarNav">
-                <ul className="navbar-nav ml-auto">
-                    <li className="nav-item">
-                        <NavLink to="/" className="nav-link">
-                            All Quizzes
-                        </NavLink>
-                    </li>
-                    {props.user ? (
-                        <li className="nav-item">
-                            <NavLink to="/addQuiz" className="nav-link">
-                                Add Quiz
-                            </NavLink>
-                        </li>
-                    ) : (
-                        ""
-                    )}
+	return (
+		<nav className='navbar navbar-expand navbar-dark bg-dark fixed-top pt-0 pb-1'>
+			<Link to='/' className='navbar-brand'>
+				Quiz
+			</Link>
+			<button
+				className='navbar-toggler'
+				type='button'
+				data-toggle='collapse'
+				data-target='#navbarNav'
+				aria-controls='navbarNav'
+				aria-expanded='false'
+				aria-label='Toggle navigation'>
+				<span className='navbar-toggler-icon'></span>
+			</button>
+			<div className='collapse navbar-collapse' id='navbarNav'>
+				<ul className='navbar-nav ml-auto'>
+					<li className='nav-item'>
+						<NavLink to='/' className='nav-link'>
+							All Quizzes
+						</NavLink>
+					</li>
+					{props.user ? (
+						<li className='nav-item'>
+							<NavLink to='/addQuiz' className='nav-link'>
+								Add Quiz
+							</NavLink>
+						</li>
+					) : (
+						''
+					)}
 
-                    {props.user ? (
-                        <li className="nav-item">
-                            <Link
-                                to="/"
-                                className="nav-link logout"
-                                onClick={handleSignOut}
-                            >
-                                Logout
-                            </Link>
-                        </li>
-                    ) : (
-                        <React.Fragment>
-                            <li className="nav-item">
-                                <NavLink to="/login" className="nav-link">
-                                    Login
-                                </NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink to="/signUp" className="nav-link">
-                                    Sign up
-                                </NavLink>
-                            </li>
-                        </React.Fragment>
-                    )}
-                </ul>
-            </div>
-        </nav>
-    );
-};
+					{props.user ? (
+						<li className='nav-item'>
+							<Link
+								to='/'
+								className='nav-link logout'
+								onClick={handleSignOut}>
+								Logout
+							</Link>
+						</li>
+					) : (
+						<React.Fragment>
+							<li className='nav-item'>
+								<NavLink to='/login' className='nav-link'>
+									Login
+								</NavLink>
+							</li>
+							<li className='nav-item'>
+								<NavLink to='/signUp' className='nav-link'>
+									Sign up
+								</NavLink>
+							</li>
+						</React.Fragment>
+					)}
+				</ul>
+			</div>
+		</nav>
+	)
+}
 
-export default Navbar;
+export default Navbar

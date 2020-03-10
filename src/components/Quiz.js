@@ -17,6 +17,7 @@ class Quiz extends Component {
 		this.getQuiz()
 	}
 
+	// Get selected quiz from Firebase
 	getQuiz = () => {
 		db.collection('quizzes')
 			.doc(this.props.match.params.id)
@@ -30,10 +31,11 @@ class Quiz extends Component {
 				}
 			})
 			.catch(error => {
-				console.log('Error getting document:', error)
+				console.error('Error getting document:', error)
 			})
 	}
 
+	// Calculate the max score of the quiz
 	getMaxScore = () => {
 		const maxScore = this.state.quiz
 			.map(question => Number(question.point))
@@ -42,10 +44,12 @@ class Quiz extends Component {
 		return maxScore
 	}
 
+	// Check if current question is the last one
 	isLastQuestion = () => {
 		return this.state.current === this.state.quiz.length - 1
 	}
 
+	// Update current number and show next question
 	showNextQuestion = () => {
 		if (this.state.current < this.state.quiz.length - 1) {
 			this.setState(prevState => ({
@@ -56,7 +60,8 @@ class Quiz extends Component {
 		}
 	}
 
-	UpdateScore = point => {
+	// Update quiz score
+	updateScore = point => {
 		this.setState(prevState => ({
 			score: prevState.score + point
 		}))
@@ -64,6 +69,7 @@ class Quiz extends Component {
 	}
 
 	render() {
+		// Check if quiz is over and render result view
 		if (this.state.quizOver) {
 			return (
 				<Result
@@ -83,7 +89,7 @@ class Quiz extends Component {
 				</h1>
 				<QuizQuestion
 					quiz={this.state.quiz[this.state.current]}
-					onUpdateScore={this.UpdateScore}
+					onUpdateScore={this.updateScore}
 					isLastQuestion={this.isLastQuestion()}
 					number={this.state.current + 1}
 				/>
