@@ -3,13 +3,6 @@ import { Link, NavLink } from 'react-router-dom'
 import { auth } from '../../modules/firebase'
 
 const Navbar = props => {
-	// User signed out
-	const handleSignOut = () => {
-		auth.signOut().then(() => {
-			console.info(props.user.email, 'signed out')
-		})
-	}
-
 	return (
 		<nav className='navbar navbar-expand navbar-dark bg-dark fixed-top pt-0 pb-1'>
 			<Link to='/' className='navbar-brand'>
@@ -47,7 +40,7 @@ const Navbar = props => {
 							<Link
 								to='/'
 								className='nav-link logout'
-								onClick={handleSignOut}>
+								onClick={() => auth.signOut()}>
 								Logout
 							</Link>
 						</li>
