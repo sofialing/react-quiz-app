@@ -19,7 +19,7 @@ class SignUp extends React.Component {
 		e.preventDefault()
 		auth.createUserWithEmailAndPassword(this.state.userName, this.state.password)
 			.then(data => {
-				return this.props.history.push('/addQuiz')
+				return this.props.history.push('/')
 			})
 			.catch(error => {
 				console.error(error)
