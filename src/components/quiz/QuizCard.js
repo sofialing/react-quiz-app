@@ -6,7 +6,7 @@ const QuizCard = props => {
 	const { name, description, id, quiz, image, createdBy } = props.quiz
 
 	return (
-		<article className='col-12 col-md-4  mb-4'>
+		<article className='col-12 col-md-6 col-lg-4 mb-4'>
 			<div className='card h-100 text-center'>
 				<img
 					src={image}
