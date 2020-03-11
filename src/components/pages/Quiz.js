@@ -71,20 +71,27 @@ class Quiz extends Component {
     };
 
     correctAnswers = () => {
-        const correct = this.state.quiz
-            .map(c => {
-                return [...c.correct];
-            })
-            .reduce((a, b) => a.concat(b));
-        const correctItem = correct.map((c, i) => {
-            return (
-                <li key={i} className="list-group-item">
-                    {c}
-                </li>
-            );
+        const correct = this.state.quiz.map((q, i) => {
+            return { question: q.question, correct: [...q.correct] };
         });
 
-        return correctItem;
+        const answersList = correct.map((c, i) => {
+            return (
+                <div key={i} className="mt-4">
+                    <p>{c.question}</p>
+                    <ul className="list-group">
+                        {c.correct.map((corr, i) => {
+                            return (
+                                <li key={i} className="list-group-item">
+                                    {corr}
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </div>
+            );
+        });
+        return answersList;
     };
 
     render() {

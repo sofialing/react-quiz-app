@@ -21,9 +21,15 @@ const Result = props => {
                         {props.result.maxScore}
                     </span>
                 </h3>
+                <Link to="/" className="btn btn-primary mt-2">
+                    Back to Quizzes
+                </Link>
             </div>
         ) : (
-            <div className="alert alert-light py-5 text-center" role="alert">
+            <div
+                className="alert alert-light pt-5 pb-3 text-center"
+                role="alert"
+            >
                 <h2 className="alert-heading">Good job!</h2>
                 <h3>
                     Your result on the quiz:{" "}
@@ -35,20 +41,17 @@ const Result = props => {
                         {props.result.maxScore}
                     </span>
                 </h3>
+                <Link to="/" className="btn btn-primary mt-5">
+                    Back to Quizzes
+                </Link>
             </div>
         );
     return (
         <React.Fragment>
             <div className="d-flex justify-content-center align-items-center flex-column">
                 {resultMsg}
-                <Link to="/" className="btn btn-primary">
-                    Back to Quizzes
-                </Link>
             </div>
-            <div className="mt-4">
-                <h1>The correct answers are:</h1>
-                <ul className='class="list-group'>{props.correctAnswers()}</ul>
-            </div>
+            {props.correctAnswers()}
         </React.Fragment>
     );
 };
