@@ -9,9 +9,10 @@ const QuizCard = props => {
 		<article className='col-12 col-md-4  mb-4'>
 			<div className='card h-100 text-center'>
 				<img
-					src={image ? image : quizImage}
+					src={image}
 					className='card-img-top'
 					alt={description}
+					onError={e => (e.target.src = quizImage)}
 				/>
 
 				<div className='card-body'>
