@@ -38,7 +38,6 @@ $custom-control-indicator-focus-border-color: none;
 
 body {
 	padding-top: 3rem;
-	// background-color: #ccc;
 }
 
 nav .nav-link.logout {
@@ -53,16 +52,6 @@ nav .nav-link.logout {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	// margin-bottom: 0.2rem;
-	// border-bottom: 1px solid black;
-	// padding-bottom: 0.2rem;
-}
-
-.delete-span {
-	cursor: pointer;
-	background-color: red;
-	padding: 0.2rem 0.3rem;
-	border-radius: 0.25rem;
 }
 
 .input-result {
