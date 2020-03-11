@@ -53,13 +53,6 @@ class createQuiz extends React.Component {
 		return (
 			<div>
 				<h1 className='text-center'>Add a new quiz</h1>
-				{this.state.error ? (
-					<div className='alert alert-warning mt-3' role='alert'>
-						{this.state.errorMessage}
-					</div>
-				) : (
-					''
-				)}
 				<form onSubmit={e => this.AddNewQuiz(e)}>
 					<div className='form-group'>
 						<label>Add a name</label>
@@ -94,10 +87,17 @@ class createQuiz extends React.Component {
 							value={this.state.imgSrc}
 						/>
 					</div>
-					<button type='submit' className='btn btn-primary'>
+					<button type='submit' className='btn btn-primary my-3'>
 						Create new quiz
 					</button>
 				</form>
+				{this.state.error ? (
+					<div className='alert alert-warning mt-3' role='alert'>
+						{this.state.errorMessage}
+					</div>
+				) : (
+					''
+				)}
 			</div>
 		)
 	}

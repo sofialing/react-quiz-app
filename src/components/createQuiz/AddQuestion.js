@@ -150,13 +150,6 @@ class AddQuestion extends React.Component {
 		return (
 			<div>
 				<h1 className='text-center'>Add a question</h1>
-				{this.state.error ? (
-					<div className='alert alert-warning mt-3' role='alert'>
-						{this.state.errorMessage}
-					</div>
-				) : (
-					''
-				)}
 				<form>
 					<div className='form-group'>
 						<label>Write a question</label>
@@ -258,6 +251,13 @@ class AddQuestion extends React.Component {
 
 				{this.state.questionAdded ? (
 					<Link to={'/quiz/' + this.props.id}>Go to the quiz</Link>
+				) : (
+					''
+				)}
+				{this.state.error ? (
+					<div className='alert alert-warning mt-3' role='alert'>
+						{this.state.errorMessage}
+					</div>
 				) : (
 					''
 				)}
